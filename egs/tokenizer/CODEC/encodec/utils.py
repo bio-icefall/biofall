@@ -121,7 +121,7 @@ def plot_feature(spectrogram):
 
 
 def plot_curve(
-    speech: torch.Tensor, sampling_rate: int, figsize: List[int] = [10, 22]
+    speech: torch.Tensor, sampling_rate: int, figsize: List[int] = [22, 10]
 ) -> bytes:
 
     import matplotlib.pyplot as plt
