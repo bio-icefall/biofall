@@ -306,19 +306,19 @@ def get_model(params: AttributeDict) -> nn.Module:
     generator_params = {
         "generator_n_filters": 32,
         "dimension": 512,
-        "ratios": [8, 6, 4, 2],
-        "target_bandwidths": [1.5, 3, 6, 12, 24],
-        "bins": 1024,
+        "ratios": [4, 4, 4, 2, 2],
+        "target_bandwidths": [4, 8, 16],
+        "bins": 64,
     }
     discriminator_params = {
         "stft_discriminator_n_filters": 32,
-        "discriminator_epoch_start": 5,
-        "n_ffts": [1024, 2048, 512],
-        "hop_lengths": [256, 512, 128],
-        "win_lengths": [1024, 2048, 512],
+        "discriminator_epoch_start": 20,
+        "n_ffts": [64, 128, 32, 16, 8],
+        "hop_lengths": [16, 32, 8, 4, 2],
+        "win_lengths": [64, 128, 32, 16, 8],
     }
     inference_params = {
-        "target_bw": 6,
+        "target_bw": 4,
     }
 
     logging.info(f"Generator params: {generator_params}")
@@ -360,8 +360,8 @@ def get_model(params: AttributeDict) -> nn.Module:
         encoder=encoder,
         quantizer=quantizer,
         decoder=decoder,
-        multi_scale_discriminator=None,
-        multi_period_discriminator=None,
+        multi_scale_discriminator=MultiScaleDiscriminator(),
+        multi_period_discriminator=MultiPeriodDiscriminator(),
         multi_scale_stft_discriminator=MultiScaleSTFTDiscriminator(
             n_filters=params.stft_discriminator_n_filters,
             n_ffts=params.n_ffts,

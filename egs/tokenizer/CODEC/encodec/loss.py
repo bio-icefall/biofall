@@ -305,7 +305,7 @@ class SpectrogramReconstructionLoss(torch.nn.Module):
         super().__init__()
         self.wav_to_specs = []
         for i in range(5, 12):
-            s = 2**i
+            s = 2**i // 8
             self.wav_to_specs.append(
                 Spectrogram(
                     n_fft=s,
